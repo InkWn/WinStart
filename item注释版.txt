@@ -1,0 +1,54 @@
+:enable(true)
+:password(123456)
+:record_all(true)
+:interval(0.1)
+:level(1)
+;;
+
+# ;;表示配置信息结尾
+# enable: 是否启用检测，true/false
+# password: 密码，默认"123456"，不可有半角的括号
+# record_all: 是否记录所有操作(true则非规则内的窗口活动也会被记录)，true/false
+# interval: 检测间隔，单位为秒
+
+# level: 检测等级：{
+# 1针对不熟悉电脑的用户
+# 2针对会使用任务管理器、cmd（有GUI界面）的用户；虽说可以自己主动添加，但不熟悉的用户不知道任务管理器，所以程序自动添加
+# 3写入驱动，防止被杀（未实现）
+# }
+
+
+# (0)表示根据进程名检测，(1)表示根据窗口标题检测，不能在Protect外使用‘(0)’或‘(1)’
+
+# 被保护进程，在检测程序初始化时获取相关pid，也就是说程序运行中不能更新；且保护程序优先与下列其他规则
+[Protect]{
+(0)[System Process]
+(0)System
+(0)explorer.exe
+(0)svchost.exe
+(0)dwm.exe
+}
+
+# 普通检测目标，仅用WM_CLOSE关闭窗口
+[Ordinary]{
+QQ
+微信
+}
+
+# 强制检测目标，WM_CLOSE失败则使用强制关闭
+[Force]{
+}
+
+# 普通且包含检测目标，即窗口标题包含指定内容
+[Include]{
+记事本
+}
+
+# 强制且包含检测目标，WM_CLOSE失败则使用强制关闭
+[ExInclude]{
+酷狗音乐
+}
+
+;;;;
+
+# ;;;;表示文本结束
